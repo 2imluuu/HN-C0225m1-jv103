@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/C0225m1_jav103_Module2.iml" filepath="$PROJECT_DIR$/C0225m1_jav103_Module2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WarehouseProductCountingApplication/WarehouseProductCountingApplication.iml" filepath="$PROJECT_DIR$/WarehouseProductCountingApplication/WarehouseProductCountingApplication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lesson1/lesson1.iml" filepath="$PROJECT_DIR$/lesson1/lesson1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lesson3_Array_Method/lesson3_Array_Method.iml" filepath="$PROJECT_DIR$/lesson3_Array_Method/lesson3_Array_Method.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lesson4_Class/lesson4_Class.iml" filepath="$PROJECT_DIR$/lesson4_Class/lesson4_Class.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lesson5_AccessModifier_StaticsMethod/lesson5_AccessModifier_StaticsMethod.iml" filepath="$PROJECT_DIR$/lesson5_AccessModifier_StaticsMethod/lesson5_AccessModifier_StaticsMethod.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lesson6_Inheritance/lesson6_Inheritance.iml" filepath="$PROJECT_DIR$/lesson6_Inheritance/lesson6_Inheritance.iml" />
+    </modules>
+  </component>
+</project>
