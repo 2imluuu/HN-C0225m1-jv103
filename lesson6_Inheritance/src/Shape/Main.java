@@ -27,5 +27,13 @@ public class Main {
 
         rectangle = new Rectangle(2.0,3.0,"orange",false);
         System.out.println(rectangle);
+        System.out.println();
+
+        Triangle  triangle = new Triangle();
+        System.out.println(triangle);
+        triangle.setSide1(2);
+        triangle.setSide2(3);
+        System.out.println(triangle);
+        System.out.println(triangle.getHalfPerimeter());
     }
 }
