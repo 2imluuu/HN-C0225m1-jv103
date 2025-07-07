@@ -4,13 +4,14 @@ import java.util.*;
 public class Menu {
     private Scanner scanner;
     private QuanLyKhoHang quanLyKhoHang;
+    private AppleFileIO appleFileIo = new AppleFileIO();
 
     public Menu(Scanner scanner, QuanLyKhoHang quanLyKhoHang) {
         this.scanner = scanner;
         this.quanLyKhoHang = quanLyKhoHang;
     }
 
-    void show() {
+    void hienThi() {
         System.out.println("======= Chương Trình Quản Lý Kho Apple =======");
         System.out.println("Nhập chức năng để thao tác:");
         System.out.println("1. Xem kho hàng");
@@ -18,7 +19,9 @@ public class Menu {
         System.out.println("3. Cập nhật");
         System.out.println("4. Xoá");
         System.out.println("5. Tìm Kiếm");
-        System.out.println("6. Thoát");
+        System.out.println("6. Đọc file");
+        System.out.println("7. Ghi file");
+        System.out.println("0. Thoát");
     }
 
     void hienThiKho() {
@@ -28,13 +31,13 @@ public class Menu {
         } else {
             System.out.println("Kho hàng trống");
         }
-        show();
+        hienThi();
     }
 
     void themSanPham() {
         tieuDe("===== Thêm Sản Phẩm =====");
-        String loai = inputStr("Nhập loại hàng để phân loại:").toLowerCase();
         Apple apple;
+        String loai = inputStr("Nhập loại hàng để phân loại (Iphone/Ipad/Macbook):").toLowerCase();
         switch (loai) {
             case "iphone":
                 apple = new Iphone();
@@ -46,24 +49,25 @@ public class Menu {
                 apple = new Macbook();
                 break;
             default:
-                System.out.println("Không có loại hàng này");
+                System.out.println("Nhập sai loại");
                 return;
         }
+
         LoaiHang loaiHang = new LoaiHang(loai);
         themThongTinSanPham(apple);
         apple.setLoaiHang(loaiHang);
-        if(apple instanceof Iphone) {
-            boolean checkFID = askYorN("FaceID [y/n]");
-            boolean check5G = askYorN("Hỗ trợ 5G [y/n]");
+        if (apple instanceof Iphone) {
+            boolean checkFID = kiemTraDungSai("FaceID [y/n]");
+            boolean check5G = kiemTraDungSai("Hỗ trợ 5G [y/n]");
             ((Iphone) apple).setFaceID(checkFID);
             ((Iphone) apple).setHoTro5G(check5G);
-        } else if (apple instanceof Ipad){
-            boolean checkPen = askYorN("Pen [y/n]");
+        } else if (apple instanceof Ipad) {
+            boolean checkPen = kiemTraDungSai("Pen [y/n]");
             ((Ipad) apple).setPen(checkPen);
-            ((Ipad) apple).setKichThuoc(kichThuoc("Nhập kích thước màn hình:"));
-        } else if (apple instanceof Macbook){
-            ((Macbook) apple).setLoaiChip("Loại Chip:");
-            ((Macbook) apple).setRamGB(nhapDungLuong("Dung lượng Ram"));
+            ((Ipad) apple).setKichThuoc(soNguyen("Nhập kích thước màn hình:"));
+        } else if (apple instanceof Macbook) {
+            ((Macbook) apple).setLoaiChip(inputStr("Loai chip:"));
+            ((Macbook) apple).setRamGB(soNguyen("Dung lượng Ram"));
         }
 
         if (quanLyKhoHang.add(apple)) {
@@ -71,7 +75,7 @@ public class Menu {
         } else {
             System.out.println("Có lỗi xảy ra");
         }
-        show();
+        hienThi();
     }
 
     void capNhapSanPham() {
@@ -87,19 +91,34 @@ public class Menu {
             System.out.println("Không tìm thấy sản phẩm");
             return;
         }
-        System.out.println("Bạn Muốn cập nhập thông tin gì:");
-        System.out.println("1.Tên");
-        System.out.println("2.Giá");
-        String choice = inputStr("Nhập lựa chọn:");
-        switch(choice){
-            case "1":
-                apple.setTen(inputStr("Nhập lại tên"));
-                break;
-                case "2":
-                    apple.setGia(nhapGia("Nhập lại giá"));
+        int choice;
+        do {
+            System.out.println("Bạn Muốn cập nhập thông tin gì:");
+            System.out.println("1.Tên");
+            System.out.println("2.Giá");
+            System.out.println("3.Số Lượng");
+            System.out.println("0.Thoát");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+                case 1:
+                    apple.setTen(inputStr("Cập nhập tên:"));
                     break;
-        }
-        show();
+                case 2:
+                    apple.setGia(soThuc("Cập nhập giá:"));
+                    break;
+                case 3:
+                    apple.setSoLuong(soNguyen("Cập nhập số lượng:"));
+                    break;
+                default:
+                    System.out.println("Không có lựa chọn này");
+            }
+            for (int i = 0; i < quanLyKhoHang.getKhoHang().size(); i++) {
+                quanLyKhoHang.edit(i, apple);
+                System.out.println("Cập nhập thành công, bạn có muốn cập nhập thêm thông tin:");
+            }
+        } while (choice != 0);
+        hienThi();
     }
 
     void xoaSanPham() {
@@ -110,7 +129,7 @@ public class Menu {
             return;
         }
 
-        Apple apple = quanLyKhoHang.timSanPhamTheoTen(ten);
+        Apple apple = (Apple) quanLyKhoHang.timSanPhamTheoTen(ten);
         if (apple == null) {
             System.out.println("Không tìm thấy sản phẩm");
             return;
@@ -123,6 +142,7 @@ public class Menu {
                 System.out.println("Xảy ra lỗi!");
             }
         }
+        hienThi();
     }
 
     void timKiemSanPham() {
@@ -155,7 +175,7 @@ public class Menu {
                     break;
             }
         } while (choice != 0);
-        show();
+        hienThi();
     }
 
     private void timTheoGiaSP() {
@@ -221,7 +241,7 @@ public class Menu {
         }
     }
 
-    private int nhapDungLuong(String title) {
+    private int soNguyen(String title) {
         String str;
         while (true) {
             System.out.println(title);
@@ -235,7 +255,7 @@ public class Menu {
         }
     }
 
-    private Double nhapGia(String title) {
+    private Double soThuc(String title) {
         String str;
         while (true) {
             System.out.println(title);
@@ -248,18 +268,6 @@ public class Menu {
         }
     }
 
-    private Double kichThuoc(String title) {
-        String str;
-        while (true) {
-            System.out.println(title);
-            str = scanner.nextLine();
-            if (!isDouble(str)) {
-                System.out.println("Nhập sai giá nhập lại bằng số thực");
-            } else {
-                return Double.parseDouble(str);
-            }
-        }
-    }
 
     private String inputStr(String title) {
         String str;
@@ -298,15 +306,40 @@ public class Menu {
         }
     }
 
-    void themThongTinSanPham(Apple apple) {
-        apple.setTen(inputStr("Nhập tên sản phẩm:"));
-        apple.setSoLuong(nhapDungLuong("Nhập số lượng:"));
-        apple.setDungLuong(nhapDungLuong("Dung lượng máy:"));
-        apple.setMau(inputStr("Nhập màu sắc:"));
-        apple.setGia(nhapGia("Nhập giá sản phẩm:"));
+    void docTuFile() {
+        tieuDe("---- ĐỌC TỪ FILE ----");
+        String confirm = inputStr("Cảnh báo: Lựa chọn này sẽ xóa toàn bộ bộ nhớ! [Y/n]: ");
+        if (confirm.toUpperCase().equals("Y")) {
+            List<Apple> docFileList = appleFileIo.readCSV("contacts.csv");
+            if (docFileList.size() > 0) {
+                System.out.println("Đọc từ file \"data/contacts.csv\" thành công!");
+                quanLyKhoHang.setKhoHang(docFileList);
+            } else {
+                System.out.println("Đã xảy ra lỗi đọc file!");
+            }
+        }
     }
 
-    private boolean askYorN(String message){
+    void ghiVaoFile() {
+        tieuDe("---- GHI VÀO FILE ----");
+        String confirm = inputStr("Cảnh báo: Lựa chọn này sẽ ghi đè nội dung mới! [Y/n]: ");
+        if (confirm.toUpperCase().equals("Y")) {
+            if (appleFileIo.writeCSVFile(quanLyKhoHang.getKhoHang(), "contacts.csv")) {
+                System.out.println("Ghi vào file \"data/contacts.csv\" thành công!");
+            } else {
+                System.out.println("Đã xảy ra lỗi ghi file!");
+            }
+        }
+    }
+    void themThongTinSanPham(Apple apple) {
+        apple.setTen(inputStr("Nhập tên sản phẩm:"));
+        apple.setSoLuong(soNguyen("Nhập số lượng:"));
+        apple.setDungLuong(soNguyen("Dung lượng máy:"));
+        apple.setMau(inputStr("Nhập màu sắc:"));
+        apple.setGia(soThuc("Nhập giá sản phẩm:"));
+    }
+
+    private boolean kiemTraDungSai(String message) {
         String input = inputStr(message).trim().toLowerCase();
         return input.equals("y");
     }

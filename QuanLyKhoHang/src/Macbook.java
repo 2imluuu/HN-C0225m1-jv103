@@ -5,14 +5,8 @@ public class Macbook extends Apple {
     public Macbook() {
     }
 
-    public Macbook(String ten, double gia, int dungLuong, String mau, String loaiChip, int ramGB) {
-        super(ten, gia, dungLuong, mau);
-        this.loaiChip = loaiChip;
-        this.ramGB = ramGB;
-    }
-
-    public Macbook(String ten, double gia, int dungLuong, String mau, LoaiHang loaiHang, String loaiChip, int ramGB) {
-        super(ten, gia, dungLuong, mau, loaiHang);
+    public Macbook(String ten,int soLuong, double gia, int dungLuong, String mau, LoaiHang loaiHang, String loaiChip, int ramGB) {
+        super(ten, soLuong, loaiHang,mau,dungLuong,gia);
         this.loaiChip = loaiChip;
         this.ramGB = ramGB;
     }

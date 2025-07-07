@@ -28,7 +28,8 @@ public class Main {
         QuanLyKhoHang quanLyKho = new QuanLyKhoHang();
         Scanner scanner = new Scanner(System.in);
         Menu menu = new Menu(scanner, quanLyKho);
-        menu.show();int choice;
+        menu.hienThi();
+        int choice;
         do {
             System.out.println("Nhập lựa chọn: ");
             choice = scanner.nextInt();
@@ -50,6 +51,12 @@ public class Main {
                     menu.timKiemSanPham();
                     break;
                 case 6:
+                    menu.docTuFile();
+                    break;
+                case 7:
+                    menu.ghiVaoFile();
+                    break;
+                case 0:
                     System.exit(0);
                     break;
                 default:

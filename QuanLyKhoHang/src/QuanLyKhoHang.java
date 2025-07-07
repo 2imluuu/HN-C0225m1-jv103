@@ -67,6 +67,7 @@ public class QuanLyKhoHang implements HeThongQuanLy<Apple> {
     }
 
     public Apple timSanPhamTheoTen(String ten) {
+        List<Apple> filters = new ArrayList<>();
         for (Apple apple : list) {
             if (apple.getTen().equalsIgnoreCase(ten)) {
                 return apple;

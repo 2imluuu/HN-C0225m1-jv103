@@ -5,16 +5,8 @@ public class Ipad extends Apple {
     public Ipad() {
     }
 
-    ;
-
-    public Ipad(String ten, double gia, int dungLuong, String mau, boolean applePen, double kichThuoc) {
-        super(ten, gia, dungLuong, mau);
-        this.pen = applePen;
-        this.kichThuoc = kichThuoc;
-    }
-
-    public Ipad(String ten, double gia, int dungLuong, String mau, LoaiHang loaiHang, boolean pen, double kichThuoc) {
-        super(ten, gia, dungLuong, mau, loaiHang);
+    public Ipad(String ten, int soLuong, double gia, int dungLuong, String mau, LoaiHang loaiHang, boolean pen, double kichThuoc) {
+        super(ten, soLuong, loaiHang, mau, dungLuong, gia);
         this.pen = pen;
         this.kichThuoc = kichThuoc;
     }

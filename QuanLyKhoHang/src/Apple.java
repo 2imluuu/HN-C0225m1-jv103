@@ -9,8 +9,6 @@ public abstract class Apple {
     public Apple() {
     }
 
-    ;
-
     public int getSoLuong() {
         return soLuong;
     }
@@ -26,21 +24,6 @@ public abstract class Apple {
         this.mau = mau;
         this.dungLuong = dungLuong;
         this.gia = gia;
-    }
-
-    public Apple(String ten, double gia, int dungLuong, String mau) {
-        this.ten = ten;
-        this.gia = gia;
-        this.dungLuong = dungLuong;
-        this.mau = mau;
-    }
-
-    public Apple(String ten, double gia, int dungLuong, String mau, LoaiHang loaiHang) {
-        this.ten = ten;
-        this.gia = gia;
-        this.dungLuong = dungLuong;
-        this.mau = mau;
-        this.loaiHang = loaiHang;
     }
 
     public String getTen() {
@@ -89,7 +72,8 @@ public abstract class Apple {
                 "\nGiá : " + this.gia + "$" +
                 "\nDung lượng : " + this.dungLuong + "GB" +
                 "\nMàu : " + this.mau +
-                "\nLoại : " + this.loaiHang.getTen();
+                "\nLoại : " + this.loaiHang.getTen() +
+                "\nSố Lượng :" + this.soLuong;
     }
 
     public abstract String getLoai();

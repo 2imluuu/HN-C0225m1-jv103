@@ -5,16 +5,8 @@ public class Iphone extends Apple {
     public Iphone() {
     }
 
-    ;
-
-    public Iphone(String ten, double gia, int dungLuong, String mau, boolean hoTro5G, boolean faceID) {
-        super(ten, gia, dungLuong, mau);
-        this.hoTro5G = hoTro5G;
-        this.faceID = faceID;
-    }
-
-    public Iphone(String ten, double gia, int dungLuong, String mau, LoaiHang loaiHang, boolean hoTro5G, boolean faceID) {
-        super(ten, gia, dungLuong, mau, loaiHang);
+    public Iphone(String ten, int soLuong, double gia, int dungLuong, String mau, LoaiHang loaiHang, boolean hoTro5G, boolean faceID) {
+        super(ten, soLuong, loaiHang, mau, dungLuong, gia);
         this.hoTro5G = hoTro5G;
         this.faceID = faceID;
     }
